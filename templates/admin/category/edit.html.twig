@@ -1,9 +1,9 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title 'Recette Modifier'  %}
+{% block title   %} Recette : Modifier la catégorie {{~category.name }}{% endblock %}
 
 {% block body %}
-    <h1>{{ recipe.title }}</h1>
+    <h1>Modifier la catégorie : {{ category.name }}</h1>
    {{ form(form) }}
 
 {% endblock %}

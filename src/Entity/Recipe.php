@@ -22,16 +22,16 @@ class Recipe
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 5)]
     #[BanWord()]
-    private ?string $title = null;
+    private string $title = '';
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 5)]
     #[Assert\Regex('/^[a-z0-9]+(?:-[a-z-09]+)*$/', message: "Ceci est un slug invalide")]
-    private ?string $slug = null;
+    private string $slug = '';
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 5)]
-    private ?string $description = null;
+    private string $description = '';
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -43,6 +43,9 @@ class Recipe
     #[Assert\NotBlank()]
     #[Assert\Positive()]
     private ?int $duration = null;
+
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    private ?Category $category = null;
 
     public function getId(): ?int
     {
@@ -117,6 +120,18 @@ class Recipe
     public function setDuration(int $duration): static
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

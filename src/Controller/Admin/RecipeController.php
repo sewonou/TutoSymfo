@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Requirement\Requirement;
 #[Route('/admin/recettes',  'admin.recipe.')]
 class RecipeController extends AbstractController
 {
-    #[Route('/ ', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(Request $request, RecipeRepository $repository, EntityManagerInterface $em): Response
     {
         $recipes = $repository->findWithDurationLowerThan(30);
@@ -48,7 +48,6 @@ class RecipeController extends AbstractController
         //dd($recipe);
 
         if($form->isSubmitted() && $form->isValid()){
-            $recipe->setUpdatedAt(new  \DateTimeImmutable());
             $em->flush();
             $this->addFlash('success',  "La recette a bien été modifiée");
             return $this->redirectToRoute('admin.recipe.index');
@@ -64,8 +63,6 @@ class RecipeController extends AbstractController
     public function create(EntityManagerInterface $em, Request $request)
     {
         $recipe = new Recipe();
-        $recipe->setCreatedAt(new  \DateTimeImmutable());
-        $recipe->setUpdatedAt(new  \DateTimeImmutable());
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
