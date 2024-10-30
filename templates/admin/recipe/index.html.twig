@@ -9,14 +9,16 @@
         <thead>
         <tr>
             <th>Titre</th>
-            <th>Actions</th>
+            <th>Categorie</th>
+            <th width="200px" >Actions</th>
         </tr>
         </thead>
         <tbody>
             {% for recipe in recipes %}
             <tr>
                 <td><a href="{{ path('admin.recipe.show', {id: recipe.id, slug: recipe.slug}) }}}">{{ recipe.title }}</a></td>
-                <td width="200px">
+                <td>{{ recipe.category.name | default('') }}</td>
+                <td >
                     <div class="d-flex gap-1">
                         <a href="{{ path('admin.recipe.edit', {id: recipe.id}) }}" class="btn btn-primary btn-sm">Editer</a>
                         <form action="{{ path('admin.recipe.delete', {id: recipe.id}) }}" method="post">

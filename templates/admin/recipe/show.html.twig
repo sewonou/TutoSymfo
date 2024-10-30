@@ -1,10 +1,12 @@
-{% extends '../admin.html.twig' %}
+{% extends 'admin/admin.html.twig' %}
 
 {% block title "Rectte : " ~ recipe.title %}
 
 {% block body %}
     <h1>{{ recipe.title }}</h1>
 <p>
+    <img src="/recettes/images/{{ recipe.thumbnail }}" alt="{{ recipe.slug }}" />
+    <br/>
     {{ recipe.description | nl2br }}
 </p>
 {% endblock %}
