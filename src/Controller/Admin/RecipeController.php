@@ -27,20 +27,7 @@ class RecipeController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}-{id}', name: 'show', requirements: ['id'=> '\d+', 'slug' => '[a-z0-9-]+'])]
-    public function show(Request $request, string $slug, int $id, RecipeRepository $repository):  Response
-    {
-        //dd($recipe);
-        $recipe = $repository->find($id);
 
-        if($recipe->getSlug() !== $slug ){
-            return $this->redirectToRoute('admin.recipe.show', ['slug' => $recipe->getSlug(), 'id' => $recipe->getId()]);
-        }
-
-        return $this->render('admin/recipe/show.html.twig', [
-            'recipe' => $recipe
-        ]);
-    }
 
 
 
@@ -52,10 +39,10 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
            /*** @var UploadedFile $file*/
-            $file = $form->get('thumbnailFile')->getData();
+            /*$file = $form->get('thumbnailFile')->getData();
             $fileName = $recipe->getSlug() . '.' . $file->getClientOriginalExtension();
             $file->move($this->getParameter('kernel.project_dir') .'/public/recettes/images', $fileName);
-            $recipe->setThumbnail($fileName);
+            $recipe->setThumbnail($fileName);*/
 
             $em->persist($recipe);
             $em->flush();
@@ -85,6 +72,21 @@ class RecipeController extends AbstractController
         return $this->render('admin/recipe/edit.html.twig', [
             'recipe' => $recipe,
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{slug}-{id}', name: 'show', requirements: ['id'=> '\d+', 'slug' => '[a-z0-9-]+'])]
+    public function show(Request $request, string $slug, int $id, RecipeRepository $repository):  Response
+    {
+        //dd($recipe);
+        $recipe = $repository->find($id);
+
+        if($recipe->getSlug() !== $slug ){
+            return $this->redirectToRoute('admin.recipe.show', ['slug' => $recipe->getSlug(), 'id' => $recipe->getId()]);
+        }
+
+        return $this->render('admin/recipe/show.html.twig', [
+            'recipe' => $recipe
         ]);
     }
 
