@@ -1,11 +1,11 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title "Rectte : " ~ recipe.title %}
+{% block title "Recette : " ~ recipe.title | default('') %}
 
 {% block body %}
-    <h1>{{ recipe.title }}</h1>
+    <h1>{{ recipe.title | default('') }}</h1>
 <p>
-    <img src="/recettes/images/{{ recipe.thumbnail }}" alt="{{ recipe.slug }}" />
+    <img src="{{ vich_uploader_asset( recipe, 'thumbnailFile')}}" alt="{{ recipe.slug }}" />
     <br/>
     {{ recipe.description | nl2br }}
 </p>

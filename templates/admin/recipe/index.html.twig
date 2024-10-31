@@ -1,6 +1,6 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title %}Hello RecipeController!{% endblock %}
+{% block title %}Recettes : Liste des recettes {% endblock %}
 
 {% block body %}
 
@@ -8,7 +8,8 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Titre</th>
+            <th>{{ knp_pagination_sortable(recipes, 'ID', 'r.id') }}</th>
+            <th>{{ knp_pagination_sortable(recipes, 'Titre', 'r.title') }}</th>
             <th>Categorie</th>
             <th width="200px" >Actions</th>
         </tr>
@@ -16,7 +17,8 @@
         <tbody>
             {% for recipe in recipes %}
             <tr>
-                <td><a href="{{ path('admin.recipe.show', {id: recipe.id, slug: recipe.slug}) }}}">{{ recipe.title }}</a></td>
+                <td>{{ recipe.id }}</td>
+                <td><a href="{{ path('admin.recipe.show', {id: recipe.id}) }}">{{ recipe.title }}</a></td>
                 <td>{{ recipe.category.name | default('') }}</td>
                 <td >
                     <div class="d-flex gap-1">
@@ -33,9 +35,7 @@
         </tbody>
 
     </table>
-<ul>
 
-
-</ul>
+    {{ knp_pagination_render(recipes) }}
 
 {% endblock %}

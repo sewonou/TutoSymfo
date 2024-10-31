@@ -24,16 +24,19 @@ class Recipe
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 5)]
+    #[Assert\NotBlank()]
     #[BanWord()]
     private string $title = '';
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 5)]
     #[Assert\Regex('/^[a-z0-9]+(?:-[a-z-09]+)*$/', message: "Ceci est un slug invalide")]
+    #[Assert\NotBlank()]
     private string $slug = '';
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 5)]
+    #[Assert\NotBlank()]
     private string $description = '';
 
     #[ORM\Column]

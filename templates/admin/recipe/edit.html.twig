@@ -3,7 +3,7 @@
 {% block title 'Recette Modifier'  %}
 
 {% block body %}
-    <h1>{{ recipe.title }}</h1>
+    <h1>{{ recipe.title | default('') }}</h1>
    {{ form(form) }}
 
 {% endblock %}
